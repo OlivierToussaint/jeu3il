@@ -11,7 +11,8 @@
 
     <?php if (isset($_SESSION['id'])) : ?>
         <div>
-            PA : <?= $character->getHp(); ?>, AP : <?= $character->getAp(); ?>
+            HP : <?= $character->getHp(); ?> / <?= $character->getHpMax(); ?>, AP : <?= $character->getAp(); ?>,
+            EXP : <?= $character->getExperience(); ?>, LVL : <?= $character->getLevel(); ?>
         </div>
     <?php endif ?>
 

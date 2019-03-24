@@ -24,6 +24,11 @@ $base->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 if (isset($_SESSION['id'])) {
     $characterRepository = new CharacterRepository($base);
     $character = $characterRepository->find($_SESSION['id']);
+    if ($character->getState() === Character::DEAD) {
+        echo "Vous êtes mort mais rien n'est fini pour vous !";
+        $character->setHp($character->getHpMax());
+        $characterRepository->update($character);
+    }
 }
 include __DIR__.'/menu.php';
 ?>

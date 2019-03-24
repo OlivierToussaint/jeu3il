@@ -1,7 +1,6 @@
 <?php
 require __DIR__.'/header.php';
 
-
 if (isset($_SESSION['id'])) {
 
     $characterRepository = new CharacterRepository($base);
@@ -15,13 +14,11 @@ if (isset($_SESSION['id'])) {
 
             // Point d'action
             $myCharacter->setAp($myCharacter->getAp() - Character::ATTAQUE_COST);
-            $characterRepository->updateAp($myCharacter);
-
+            $myCharacter->addExperience(100);
             // Attaque
             $damage = rand(1,100);
             $hp = $enemy->getHp() - $damage;
             $enemy->setHp($hp);
-            $characterRepository->updateHp($enemy);
 
             $message = $myCharacter->getName() . " attaque ". $enemy->getName(). " pour " . $damage ." de dommage <br>";
 
@@ -32,10 +29,15 @@ if (isset($_SESSION['id'])) {
             $characterLogRepository->add($myCharacter, $message);
             $characterLogRepository->add($enemy, $message);
 
-
             if ($enemy->getState() === Character::DEAD) {
                 echo $enemy->getName(). " est mort";
+                $myCharacter->addExperience(500);
             }
+
+            // Enregistrement des données
+            $characterRepository->update($myCharacter);
+            $characterRepository->update($enemy);
+
         } else {
             echo "Vous n'avez pas assez de point d'action";
         }

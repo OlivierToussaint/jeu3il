@@ -13,7 +13,11 @@ class Character
 
     public const AP_REGEN = 60;
 
-    public const AP_MAX = 20;
+    public const HP_MAX = 100;
+
+    public const AP_MAX = 100;
+
+    public const LEVEL_EXPERIENCE = 1000;
 
     private $id;
 
@@ -26,6 +30,10 @@ class Character
     private $password;
 
     private $lastaction;
+
+    private $experience = 0;
+
+    private $level = 1;
 
     public function __construct(array $arrayOfValues = null)
     {
@@ -61,7 +69,16 @@ class Character
 
     public function setHp($hp)
     {
-        $this->hp = $hp;
+        if ($hp > $this->getHpMax()) {
+            $this->hp = $this->getHpMax();
+        } else {
+            $this->hp = $hp;
+        }
+    }
+
+    public function getHpMax()
+    {
+        return floor(self::HP_MAX + ($this->level * 8));
     }
 
     public function getAp()
@@ -93,6 +110,27 @@ class Character
     {
         $this->lastaction = $lastaction;
     }
+
+    public function getExperience()
+    {
+        return $this->experience;
+    }
+
+    public function setExperience($experience): void
+    {
+        $this->experience = $experience;
+    }
+
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    public function setLevel($level): void
+    {
+        $this->level = $level;
+    }
+
 
 
 
@@ -126,8 +164,27 @@ class Character
         if ($seconde > self::AP_REGEN) {
             $newAP = floor($seconde / self::AP_REGEN);
             $this->ap = $this->ap + $newAP;
+            if ($this->ap > self::AP_MAX) {
+                $this->ap = self::AP_MAX;
+            }
         }
     }
+
+    public function addExperience($experience)
+    {
+        $this->experience += $experience;
+    }
+
+    public function checkExperience()
+    {
+        $experienceMax = $this->level * self::LEVEL_EXPERIENCE;
+        if ($this->experience >= $experienceMax) {
+            ++$this->level;
+            $this->experience = 0;
+        }
+    }
+
+
 
 
 }

@@ -14,13 +14,12 @@ if (isset($_SESSION['id'])) {
 
             // Point d'action
             $myCharacter->setAp($myCharacter->getAp() - Character::HEAL_COST);
-            $characterRepository->updateAp($myCharacter);
+            $myCharacter->addExperience(50);
 
             // Heal
             $heal = rand(1,50);
             $hp = $friend->getHp() + $heal;
             $friend->setHp($hp);
-            $characterRepository->updateHp($friend);
 
             $message = $myCharacter->getName() . " soigne ". $friend->getName(). " pour " . $heal ." de soins <br>";
 
@@ -30,6 +29,9 @@ if (isset($_SESSION['id'])) {
             $characterLogRepository = new CharacterLogRepository($base);
             $characterLogRepository->add($myCharacter, $message);
             $characterLogRepository->add($friend, $message);
+
+            $characterRepository->update($myCharacter);
+            $characterRepository->update($friend);
 
         } else {
             echo "Vous n'avez pas assez de point d'action";
