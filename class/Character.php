@@ -9,6 +9,8 @@ class Character
 
     public const ATTAQUE_COST = 5;
 
+    public const HEAL_COST = 2;
+
     public const AP_REGEN = 60;
 
     public const AP_MAX = 20;
