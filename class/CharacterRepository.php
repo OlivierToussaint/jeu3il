@@ -1,4 +1,5 @@
 <?php
+
 class CharacterRepository
 {
     private $base;
@@ -27,10 +28,47 @@ class CharacterRepository
         $response->bindValue(':name', $character->getName());
         $response->execute();
 
-        return (bool) $response->fetchColumn();
+        return (bool)$response->fetchColumn();
     }
 
+    public function find(int $id)
+    {
+        $response = $this->base->prepare('SELECT * FROM characters WHERE id = :id');
+        $response->bindValue(':id', $id);
+        $result = $response->execute();
+        if ($result === true) {
+            $character = new Character($response->fetch());
+            return $character;
+        }
 
+        return false;
+
+    }
+
+    public function findByName(string $name)
+    {
+        $response = $this->base->prepare('SELECT * FROM characters WHERE name = :name');
+        $response->bindValue(':name', $name);
+        $response->execute();
+
+        return $response->fetch();
+
+    }
+
+    public function login(string $name, string $password)
+    {
+        if ($result = $this->findByName($name)) {
+            if (password_verify($password, $result['password'])) {
+                $character = $this->find($result['id']);
+                $_SESSION['id'] = $character->getId();
+                $_SESSION['username'] =  $character->getName();
+                return $character;
+            }
+            return false;
+        }
+        return false;
+
+    }
 
 
 }
