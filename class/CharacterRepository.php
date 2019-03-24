@@ -70,7 +70,36 @@ class CharacterRepository
 
     }
 
+    public function findAllWithoutMe(int $id)
+    {
+        $response = $this->base->prepare('SELECT * FROM characters WHERE id <> :id');
+        $response->bindValue(':id', $id);
+        $result = $response->execute();
+        if ($result === true) {
+            $records = $response->fetchAll(PDO::FETCH_CLASS, 'Character');
+            return $records;
+        }
 
+        return false;
+    }
 
+    public function updateHp(Character $character)
+    {
+        $response = $this->base->prepare('UPDATE characters SET hp = :hp WHERE id = :id');
 
+        $response->bindValue(':hp', $character->getHp(), PDO::PARAM_INT);
+        $response->bindValue(':id', $character->getId(), PDO::PARAM_INT);
+
+        $response->execute();
+    }
+
+    public function updateAp(Character $character)
+    {
+        $response = $this->base->prepare('UPDATE characters SET ap = :ap WHERE id = :id');
+
+        $response->bindValue(':ap', $character->getAp(), PDO::PARAM_INT);
+        $response->bindValue(':id', $character->getId(), PDO::PARAM_INT);
+
+        $response->execute();
+    }
 }

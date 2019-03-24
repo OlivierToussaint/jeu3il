@@ -3,6 +3,11 @@
 
 class Character
 {
+    public const ALIVE = 'alive';
+
+    public const DEAD = 'dead';
+
+    public const ATTAQUE_COST = 5;
 
     private $id;
 
@@ -14,7 +19,7 @@ class Character
 
     private $password;
 
-    public function __construct(?array $arrayOfValues)
+    public function __construct(array $arrayOfValues = null)
     {
         if ($arrayOfValues !== null) {
             $this->hydrate($arrayOfValues);
@@ -36,7 +41,7 @@ class Character
         return $this->name;
     }
 
-     public function setName($name)
+    public function setName($name)
     {
         $this->name = $name;
     }
@@ -84,5 +89,14 @@ class Character
             }
         }
     }
+
+    public function getState()
+    {
+        if ($this->hp < 0) {
+            return self::DEAD;
+        }
+        return self::ALIVE;
+    }
+
 
 }
