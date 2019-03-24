@@ -9,7 +9,7 @@ if (isset($_SESSION['id'])) {
     $enemy = $characterRepository->find($_GET['id']);
 
     if ($enemy->getState() === Character::DEAD) {
-        echo "Vous venez de découvrir un corp sans vie ...";
+        echo "Vous venez de découvrir un corps sans vie ...";
     } else {
         if ($myCharacter->getAp() >= Character::ATTAQUE_COST) {
 
@@ -23,7 +23,16 @@ if (isset($_SESSION['id'])) {
             $enemy->setHp($hp);
             $characterRepository->updateHp($enemy);
 
-            echo $myCharacter->getName() . " attaque ". $enemy->getName(). " pour " . $damage ." de dommage <br>";
+            $message = $myCharacter->getName() . " attaque ". $enemy->getName(). " pour " . $damage ." de dommage <br>";
+
+            echo $message;
+
+            // J'enregistre les logs dans chaques journal
+            $characterLogRepository = new CharacterLogRepository($base);
+            $characterLogRepository->add($myCharacter, $message);
+            $characterLogRepository->add($enemy, $message);
+
+
             if ($enemy->getState() === Character::DEAD) {
                 echo $enemy->getName(). " est mort";
             }
