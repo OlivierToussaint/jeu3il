@@ -26,3 +26,6 @@ if (isset($_SESSION['id'])) {
 }
 ?>
 
+<?php
+require __DIR__.'/footer.php';
+?>

@@ -28,3 +28,6 @@ if (isset($_POST['name']) && isset($_POST['password'])) {
     <input type="password" name="password">
     <button type="submit">Inscription</button>
 </form>
+<?php
+require __DIR__.'/footer.php';
+?>

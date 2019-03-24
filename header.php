@@ -10,3 +10,15 @@ spl_autoload_register('loadClass');
 $base = new PDO('mysql:host=localhost;dbname=tp', 'tp', 'secret');
 $base->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 ?>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="style.css" >
+        <title>Mon jeu</title>
+    </head>
+    <body>
+
+<?php
+include __DIR__.'/menu.php';
+?>
