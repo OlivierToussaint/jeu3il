@@ -5,14 +5,15 @@ if (isset($_POST['name']) && isset($_POST['password'])) {
 
     $characterRepository = new CharacterRepository($base);
     if ($characterRepository->login($_POST['name'], $_POST['password'])) {
-        echo "Vous etes connecter";
+        header('Location: index.php');
     } else {
         echo "Ce personnage n'existe pas";
     }
 }
 
 if (isset($_SESSION['id'])) {
-    echo "Vous êtes déjà connecter";
+    header('Location: index.php');
+
 } else {
     ?>
     <form method='post'>

@@ -20,5 +20,10 @@ $base->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
     <body>
 
 <?php
+
+if (isset($_SESSION['id'])) {
+    $characterRepository = new CharacterRepository($base);
+    $character = $characterRepository->find($_SESSION['id']);
+}
 include __DIR__.'/menu.php';
 ?>

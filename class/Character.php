@@ -9,6 +9,10 @@ class Character
 
     public const ATTAQUE_COST = 5;
 
+    public const AP_REGEN = 60;
+
+    public const AP_MAX = 20;
+
     private $id;
 
     private $name;
@@ -18,6 +22,8 @@ class Character
     private $ap;
 
     private $password;
+
+    private $lastaction;
 
     public function __construct(array $arrayOfValues = null)
     {
@@ -76,6 +82,17 @@ class Character
         $this->password = $password;
     }
 
+    public function getLastaction()
+    {
+        return $this->lastaction;
+    }
+
+    public function setLastaction($lastaction)
+    {
+        $this->lastaction = $lastaction;
+    }
+
+
 
     public function hydrate(array $donnees)
     {
@@ -96,6 +113,18 @@ class Character
             return self::DEAD;
         }
         return self::ALIVE;
+    }
+
+    public function getNewAp()
+    {
+        $datetime1 = new DateTime('now');
+        $datetime2 = new DateTime($this->lastaction);
+        $interval = $datetime1->diff($datetime2);
+        $seconde = $interval->s + $interval->i * 60 + $interval->h * 60 * 60;
+        if ($seconde > self::AP_REGEN) {
+            $newAP = floor($seconde / self::AP_REGEN);
+            $this->ap = $this->ap + $newAP;
+        }
     }
 
 
