@@ -1,0 +1,17 @@
+<nav class="menu">
+    <a href="index.php">Index</a>
+    {% if session.id %}
+        <a href="journal.php">Journal</a>
+        <a href="deconnection.php">Déconnection</a>
+    {% else %}
+        <a href="inscription.php">Inscription</a>
+        <a href="connexion.php">Connexion</a>
+    {% endif %}
+</nav>
+
+{% if session.id %}
+    <div>
+        HP : {{ character.hp }} / {{ character.hpMax }}, AP : {{ character.ap }},
+        EXP : {{ character.experience }}, LVL : {{ character.level }}
+    </div>
+{% endif %}

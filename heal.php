@@ -26,9 +26,8 @@ if (isset($_SESSION['id'])) {
             $hp = $friend->getHp() + $heal;
             $friend->setHp($hp);
 
-            $message = $myCharacter->getName() . " soigne ". $friend->getName(). " pour " . $heal ." de soins <br>";
+            $message = $myCharacter->getName() . " soigne ". $friend->getName(). " pour " . $heal ." de soins";
 
-            echo $message;
 
             // J'enregistre les logs dans chaques journal
             $characterLogRepository = new CharacterLogRepository($base);
@@ -43,7 +42,7 @@ if (isset($_SESSION['id'])) {
         }
     }
 }
+echo $twig->render('heal.html.twig', ['message' => $message]);
 
-require __DIR__.'/footer.php';
 
 ?>

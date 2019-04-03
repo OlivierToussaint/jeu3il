@@ -22,9 +22,7 @@ if (isset($_SESSION['id'])) {
             $hp = $enemy->getHp() - $damage;
             $enemy->setHp($hp);
 
-            $message = $myCharacter->getName() . " attaque ". $enemy->getName(). " pour " . $damage ." de dommage <br>";
-
-            echo $message;
+            $message = $myCharacter->getName() . " attaque ". $enemy->getName(). " pour " . $damage ." de dommage";
 
             // J'enregistre les logs dans chaques journal
             $characterLogRepository = new CharacterLogRepository($base);
@@ -41,11 +39,11 @@ if (isset($_SESSION['id'])) {
             $characterRepository->update($enemy);
 
         } else {
-            echo "Vous n'avez pas assez de point d'action";
+            $message =  "Vous n'avez pas assez de point d'action";
         }
     }
 }
+echo $twig->render('attaque.html.twig', ['message' => $message]);
 
-require __DIR__.'/footer.php';
 
 ?>

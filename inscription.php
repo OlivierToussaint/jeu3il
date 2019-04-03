@@ -22,15 +22,7 @@ if (isset($_POST['name']) && isset($_POST['password'])) {
     }
 }
 
+echo $twig->render('inscription.html.twig');
+
 ?>
 
-<form method='post'>
-    <label>Nom</label>
-    <input type="text" name="name">
-    <label>Password</label>
-    <input type="password" name="password">
-    <button type="submit">Inscription</button>
-</form>
-<?php
-require __DIR__.'/footer.php';
-?>

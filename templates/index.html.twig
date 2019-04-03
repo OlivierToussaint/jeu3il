@@ -1,0 +1,7 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% for character in characters %}
+    {{ character.name }} : Action disponible <a href="attaque.php?id={{ character.id}}">Attaque</a> - <a href="heal.php?id={{ character.id}}">Soin</a><br>
+    {% endfor %}
+{% endblock %}

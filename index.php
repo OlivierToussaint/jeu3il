@@ -1,15 +1,11 @@
 <?php
 require __DIR__.'/header.php';
 
-
+$characters = null;
 if (isset($_SESSION['id'])) {
-
-    $listOfCharacter = $characterRepository->findAllWithoutMe($_SESSION['id']);
-    foreach ($listOfCharacter as $character):?>
-        <?= $character->getName();?> : Action disponible <a href="attaque.php?id=<?= $character->getId();?>">Attaque</a> - <a href="heal.php?id=<?= $character->getId();?>">Soin</a><br>
-    <?php endforeach;
+    $characters = $characterRepository->findAllWithoutMe($_SESSION['id']);
 }
+echo $twig->render('index.html.twig', ['characters' => $characters]);
 
-require __DIR__.'/footer.php';
 
 ?>

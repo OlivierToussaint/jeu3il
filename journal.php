@@ -1,18 +1,14 @@
 <?php
 require __DIR__.'/header.php';
-
-
 use App\CharacterLogRepository;
+
+$charactersLog = null;
+
 if (isset($_SESSION['id'])) {
     $characterLogRepository = new CharacterLogRepository($base);
-    if ($listOfLog = $characterLogRepository->findAllForMe($_SESSION['id'])):
-        foreach ($listOfLog as $log):?>
-            <?= $log->getAddAt(); ?> : <?= $log->getMessage(); ?><br>
-        <?php
-        endforeach;
-    endif;
+    $charactersLog = $characterLogRepository->findAllForMe($_SESSION['id']);
 }
 
-require __DIR__.'/footer.php';
+echo $twig->render('journal.html.twig', ['charactersLog' => $charactersLog]);
 
 ?>

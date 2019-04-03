@@ -31,7 +31,7 @@ class CharacterLogRepository
         $response->bindValue(':id', $id);
         $result = $response->execute();
         if ($result === true) {
-            $records = $response->fetchAll(PDO::FETCH_CLASS, 'CharacterLog');
+            $records = $response->fetchAll(PDO::FETCH_CLASS, 'App\CharacterLog');
             return $records;
         }
 

@@ -16,18 +16,8 @@ if (isset($_SESSION['id'])) {
     header('Location: index.php');
 
 } else {
-    ?>
-    <form method='post'>
-        <label>Nom</label>
-        <input type="text" name="name">
-        <label>Password</label>
-        <input type="password" name="password">
-        <button type="submit">Connexion</button>
-    </form>
-    <?php
+    echo $twig->render('connexion.html.twig');
+
 }
 ?>
 
-<?php
-require __DIR__.'/footer.php';
-?>
