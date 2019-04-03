@@ -1,11 +1,9 @@
 <?php
 session_start();
-function loadClass($classname)
-{
-    require 'class//'.$classname.'.php';
-}
+require __DIR__ . '/vendor/autoload.php';
 
-spl_autoload_register('loadClass');
+use App\CharacterRepository;
+use App\Character;
 
 $base = new PDO('mysql:host=localhost;dbname=tp', 'tp', 'secret');
 $base->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);

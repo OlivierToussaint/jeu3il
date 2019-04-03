@@ -1,6 +1,9 @@
 <?php
 require __DIR__.'/header.php';
 
+use App\Character;
+use App\CharacterRepository;
+
 if (isset($_POST['name']) && isset($_POST['password'])) {
 
     $character = new Character([

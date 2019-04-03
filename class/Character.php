@@ -1,5 +1,6 @@
 <?php
 
+namespace App;
 
 class Character
 {
@@ -157,8 +158,8 @@ class Character
 
     public function getNewAp()
     {
-        $datetime1 = new DateTime('now');
-        $datetime2 = new DateTime($this->lastaction);
+        $datetime1 = new \DateTime('now');
+        $datetime2 = new \DateTime($this->lastaction);
         $interval = $datetime1->diff($datetime2);
         $seconde = $interval->s + $interval->i * 60 + $interval->h * 60 * 60;
         if ($seconde > self::AP_REGEN) {

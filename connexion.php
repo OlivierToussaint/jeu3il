@@ -1,5 +1,6 @@
 <?php
 require __DIR__.'/header.php';
+use App\CharacterRepository;
 
 if (isset($_POST['name']) && isset($_POST['password'])) {
 

@@ -1,4 +1,7 @@
 <?php
+namespace App;
+use PDO;
+use DateTime;
 
 class CharacterLogRepository
 {

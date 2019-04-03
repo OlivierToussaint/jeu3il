@@ -2,6 +2,7 @@
 require __DIR__.'/header.php';
 
 
+use App\CharacterLogRepository;
 if (isset($_SESSION['id'])) {
     $characterLogRepository = new CharacterLogRepository($base);
     if ($listOfLog = $characterLogRepository->findAllForMe($_SESSION['id'])):

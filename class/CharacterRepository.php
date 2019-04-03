@@ -1,5 +1,11 @@
 <?php
 
+namespace App;
+
+use PDO;
+use DateTime;
+use App\Character;
+
 class CharacterRepository
 {
     private $base;
@@ -78,7 +84,7 @@ class CharacterRepository
         $response->bindValue(':id', $id);
         $result = $response->execute();
         if ($result === true) {
-            $records = $response->fetchAll(PDO::FETCH_CLASS, 'Character');
+            $records = $response->fetchAll(PDO::FETCH_CLASS, 'App\Character');
             return $records;
         }
 
